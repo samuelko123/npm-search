@@ -1,5 +1,6 @@
 export { default as Card } from './Card'
 export { default as ErrorAlert } from './ErrorAlert'
+export { default as ExcelButton } from './ExcelButton'
 export { default as Layout } from './Layout'
 export { default as Navbar } from './Navbar'
 export { default as Pagination } from './Pagination'

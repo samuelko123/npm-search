@@ -1,4 +1,4 @@
-exports.paginate = (currentPage, pageCount, siblingCount) => {
+export function paginate(currentPage, pageCount, siblingCount) {
     let result = []
     if (currentPage > 1) {
         result.push('<')

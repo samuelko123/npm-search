@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Card, ErrorAlert, Pagination, SearchBar, Spinner } from '../components'
+import { Row, Col } from 'react-bootstrap'
+import { Card, ErrorAlert, ExcelButton, Pagination, SearchBar, Spinner } from '../components'
 import axios from 'axios'
+import { downloadExcel } from '../libs'
+import styles from '../styles/index.module.css'
 
 export default () => {
   const pageSize = 20
@@ -43,6 +46,20 @@ export default () => {
     setPageNum(pageNum)
   }
 
+  const handleDownloadExcel = async () => {
+    const headers = ['name', 'description', 'url']
+    const data = items.map(function (item) {
+      return {
+        name: item.package.name,
+        description: item.package.description,
+        url: item.package.links.npm,
+      }
+    })
+
+    const fileName = `${keyword}.xlsx`
+    downloadExcel(headers, data, fileName, 'Packages')
+  }
+
   return (
     <>
       <SearchBar
@@ -59,13 +76,24 @@ export default () => {
       }
       {!isLoading && !!items &&
         <>
-          <p>No. of results: {itemCount.toLocaleString('en-AU')}</p>
+          <Row>
+            <Col>
+              No. of results: {itemCount.toLocaleString('en-AU')}
+            </Col>
+            <Col className={styles.btn_container}>
+              <ExcelButton
+                onClick={handleDownloadExcel}
+              />
+            </Col>
+          </Row>
           {
             items.map((item, index) =>
               <Card
                 key={index}
                 title={
-                  <a href={item.package.links.npm} target='_blank' className='link-primary' rel="noreferrer">{item.package.name}</a>
+                  <a href={item.package.links.npm} target='_blank' className='link-primary' rel="noreferrer">
+                    {item.package.name}
+                  </a>
                 }
                 body={item.package.description}
               />

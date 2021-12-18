@@ -1,5 +1,5 @@
 import { Pagination } from 'react-bootstrap'
-import { paginate } from '../libs/pagination'
+import { paginate } from '../libs'
 
 export default (props) => {
     const { currentPage, itemCount, pageSize, siblingCount, onClick } = props
