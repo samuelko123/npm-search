@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Card, ErrorAlert, Pagination, SearchBar, Spinner } from '../components'
 import axios from 'axios'
 
@@ -11,28 +11,28 @@ export default () => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!!keyword && !!pageNum) {
-        setIsLoading(true)
+  const fetchData = useCallback(async () => {
+    if (!!keyword && !!pageNum) {
+      setIsLoading(true)
 
-        try {
-          let from = (pageNum - 1) * pageSize
-          let url = `https://registry.npmjs.org/-/v1/search?text=${keyword}&size=${pageSize}&from=${from}`
-          let res = await axios.get(url)
+      try {
+        let from = (pageNum - 1) * pageSize
+        let url = `https://registry.npmjs.org/-/v1/search?text=${keyword}&size=${pageSize}&from=${from}`
+        let res = await axios.get(url)
 
-          setItems(res.data.objects)
-          setItemCount(res.data.total)
-        } catch (err) {
-          setErrorMsg(err)
-        } finally {
-          setIsLoading(false)
-        }
+        setItems(res.data.objects)
+        setItemCount(res.data.total)
+      } catch (err) {
+        setErrorMsg(err)
+      } finally {
+        setIsLoading(false)
       }
     }
-
-    fetchData()
   }, [keyword, pageNum])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const handleKeywordChange = (keyword) => {
     setKeyword(keyword)
