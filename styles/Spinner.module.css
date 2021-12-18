@@ -1,0 +1,12 @@
+.spinner {
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    animation-timing-function: cubic-bezier(0.8, 0, 0.8, 1);
+    border-width: 0.5rem;
+}

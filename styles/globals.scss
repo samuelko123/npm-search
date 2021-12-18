@@ -1,0 +1,14 @@
+// override variables
+$primary: #0d5257;
+
+// import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+// global styling
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
